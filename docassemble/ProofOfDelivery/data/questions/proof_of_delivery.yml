@@ -129,7 +129,7 @@ continue button field: whats_next
 question: |
   After you finish this program
 subquestion: |
-  After you download your **Proof of delivery**, you must file it with the court. This program does not file your **Proof of delivery** for you.
+  After you download your Proof of delivery, you must file it with the court. This program does not file your Proof of delivery for you.
   
   Read the instructions you can download at the end of this program. 
 ---
@@ -137,7 +137,7 @@ id: document name
 question: |
   What is the name of the court document you are sending to the other parties in the case?
 subquestion: |
-  The name is usually found in the top part of the first page of the court document. Examples include **Motion to Dismiss**, **Petition for Divorce**, or **Small Claims Complaint**.
+  The name is usually found in the top part of the first page of the court document. Examples include **Court Order**, **Answer to Discovery**, or **Motion to Dismiss**.
 fields:
   - Court document name: document_name
 ---
@@ -319,9 +319,11 @@ fields:
 ---
 id: e-signature
 question: |
-  Do you want to add your e-signature to your **Proof of delivery**?
+  Do you want to add your e-signature to your Proof of delivery?
 subquestion: |
   If you do not add your **{e-signature}**, you must sign your paper form before you file and deliver it.
+  
+  This program can put “/s/ ${users[0].name.full(middle='full')}” where you would sign your name. The court will accept this as your signature.
 
   ${ collapse_template(signature_help) }  
 fields:
@@ -333,9 +335,9 @@ terms:
 ---
 template: signature_help
 subject: |
-  **What does it mean to sign the *Proof of delivery*?**
+  **What does it mean to sign the Proof of delivery?**
 content: |  
-  By signing your *Proof of delivery*, you are certifying that:
+  By signing your Proof of delivery, you are certifying that:
   
   * Everything on the form is true and correct, and
   * You understand that making a false statement on the form is perjury, which can result in criminal penalties.
@@ -577,11 +579,14 @@ continue button field: hand_delivery_info
 question: |
   Hand delivery
 subquestion: |
+  **Don't forget!** Make sure you review and complete the hand delivery section of your forms. 
+
+  [FILE proof_of_delivery_snip.png, 100%, Proof of Delivery section of forms]
+  
   **Instructions when delivering your forms by hand:**
 
   * If a party in your case does not have a lawyer, you can hand-deliver the forms to them or to a family member who is 13 or older at their home.
   * If they do have a lawyer, you can hand-deliver the forms to the lawyer or to the lawyer's office.
-
 ---
 id: get docs screen
 event: get_docs_screen
@@ -626,7 +631,6 @@ content: |
 objects:
   - proof_of_delivery: ALDocument.using(title="Proof of Delivery", filename="proof_of_delivery.pdf", has_addendum=False)
   - instructions: ALDocument.using(title="Instructions", filename="instructions.pdf", has_addendum=False)
-  - getting_started: ALDocument.using(title="Getting started", filename="getting_started.pdf", has_addendum=False)
   - additional_proof: ALDocument.using(title="Additional Proof of Delivery", filename="additional_proof_of_delivery.pdf", has_addendum=False)
   - additional_proof_2: ALDocument.using(title="Additional Proof of Delivery 2", filename="additional_proof_2.pdf", has_addendum=False)
   - additional_proof_3: ALDocument.using(title="Additional Proof of Delivery 3", filename="additional_proof_3.pdf", has_addendum=False)
@@ -635,7 +639,6 @@ objects:
 code: |
   proof_of_delivery.enabled = True
   instructions.enabled = True
-  getting_started.enabled = True
   additional_proof.enabled = False
   additional_proof_2.enabled = False
   additional_proof_3.enabled = False
@@ -654,8 +657,11 @@ code: |
     additional_proof_blank.enabled = True
 ---
 objects:
-  - al_user_bundle: ALDocumentBundle.using(elements=[getting_started, instructions, proof_of_delivery, additional_proof, additional_proof_2, additional_proof_3, additional_proof_blank], filename="proof_of_delivery.pdf", title="All forms")
-  - al_court_bundle: ALDocumentBundle.using(elements=[getting_started, instructions, proof_of_delivery, additional_proof, additional_proof_2, additional_proof_3, additional_proof_blank], filename="proof_of_delivery.pdf", title="Appearance")
+  - al_user_bundle: ALDocumentBundle.using(elements=[instructions, proof_of_delivery_single_pdf_bundle, additional_proof_blank], filename="proof_of_delivery.pdf", title="All forms")
+  - al_court_bundle: ALDocumentBundle.using(elements=[instructions, proof_of_delivery_single_pdf_bundle, additional_proof_blank], filename="proof_of_delivery.pdf", title="All forms")
+---
+objects:
+  - proof_of_delivery_single_pdf_bundle: ALDocumentBundle.using(elements=[proof_of_delivery, additional_proof, additional_proof_2, additional_proof_3], filename="proof_of_delivery_bundle.pdf", title="Proof of Delivery", enabled=True)
 ---
 attachment:
   variable name: instructions[i]
@@ -664,16 +670,6 @@ attachment:
   skip undefined: True
   editable: False
   pdf template file: POD_Instructions.pdf
-  fields:
-      - "fake": ${ "" }
----
-attachment:
-  variable name: getting_started[i]
-  name: getting_started
-  filename: getting_started
-  skip undefined: True
-  editable: False
-  pdf template file: POD_Getting_Started.pdf
   fields:
       - "fake": ${ "" }
 ---
