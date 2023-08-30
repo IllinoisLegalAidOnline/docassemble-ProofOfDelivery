@@ -44,7 +44,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.ProofOfDelivery',
-      version='0.0.2',
+      version='0.0.3',
       description=('Proof of delivery'),
       long_description='# docassemble.Proof_of_delivery\r\n\r\nProof of delivery\r\n\r\n## Author\r\n\r\nMatt Newsted, mnewsted@illinoislegalaid.org\r\nVivian McNaughton, vmcnaughton@illinoislegalaid.org\r\n\r\n',
       long_description_content_type='text/markdown',

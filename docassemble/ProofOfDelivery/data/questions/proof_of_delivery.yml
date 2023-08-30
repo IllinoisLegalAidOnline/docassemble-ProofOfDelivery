@@ -97,6 +97,13 @@ subquestion: |
   Welcome to Illinois Legal Aid Online's **Proof of delivery** Easy Form.
 
   This program will help you prepare forms to prove that you sent a copy of a court document to the other parties in a court case.
+  
+  Anytime:
+
+  * You file a document with the court, or
+  * The judge sends or gives a court order only to you, 
+
+  you must send a copy of the document to the other parties in the court case.
 field: sees_nav_bar
 ---
 id: instructions
@@ -577,9 +584,9 @@ validation code: |
 id: hand delivery info
 continue button field: hand_delivery_info
 question: |
-  Hand delivery
+  Complete the delivery section of your forms
 subquestion: |
-  **Don't forget!** Make sure you review and complete the hand delivery section of your forms. 
+  **Don't forget!** Make sure you review and complete the delivery section of your forms for each party.
 
   [FILE proof_of_delivery_snip.png, 100%, Proof of Delivery section of forms]
   
@@ -722,7 +729,7 @@ attachment:
       - "efiling_two": ${ delivery_parties[1].efm_delivery if delivery_parties[1].knows_delivery_method else '' }
       - "email_two": ${ delivery_parties[1].email_delivery if delivery_parties[1].knows_delivery_method else '' }
       - "date_two": ${ delivery_parties[1].delivery_date if delivery_parties[1].knows_delivery_method and delivery_parties[1].knows_delivery_date else '' }
-      - "time_two": ${ format_time(delivery_parties[1].delivery_time, format='h:mm') if delivery_parties[1].knows_delivery_method and delivery_parties[0].knows_delivery_time else '' }
+      - "time_two": ${ format_time(delivery_parties[1].delivery_time, format='h:mm') if delivery_parties[1].knows_delivery_method and delivery_parties[1].knows_delivery_time else '' }
       - "morning_two": ${ True if delivery_parties[1].knows_delivery_method and format_time(delivery_parties[1].delivery_time, format='a')=='AM' else '' }
       - "afternoon_two": ${ True if delivery_parties[1].knows_delivery_method and format_time(delivery_parties[1].delivery_time, format='a')=='PM' else '' }
 
@@ -905,6 +912,28 @@ attachment:
       - "user_email": ${ users[0].email if users[0].email_notice else '' }
       - "case_number": ${ case_number }
       - "document_name": ${document_name}
+      - "upper_party_name": ${ "" }
+      - "upper_party_address": ${ "" }
+      - "upper_party_email": ${ "" }
+      - "hand_upper": ${ "" }
+      - "mail_upper": ${ "" }
+      - "efiling_upper": ${ "" }
+      - "email_upper": ${ "" }
+      - "date_upper": ${ "" }
+      - "time_upper": ${ "" }
+      - "morning_upper": ${ "" }
+      - "afternoon_upper": ${ "" }
+      - "lower_party_name": ${ "" }
+      - "lower_party_address": ${ "" }
+      - "lower_party_email": ${ "" }
+      - "hand_lower": ${ "" }
+      - "mail_lower": ${ "" }
+      - "efiling_lower": ${ "" }
+      - "email_lower": ${ "" }
+      - "date_lower": ${ "" }
+      - "time_lower": ${ "" }
+      - "morning_lower": ${ "" }
+      - "afternoon_lower": ${ "" }
 ---
 ############### Review page
 id: review screen
@@ -945,11 +974,7 @@ review:
   - Edit: case_number
     button: |
       **Case number:**
-      ${ case_number }   
-  - Edit: e_signature
-    button: |
-      **Do you want to add your e-signature to your forms?**
-      ${ word(yesno(e_signature)) }
+      ${ case_number }  
   - Edit: users[0].address.address
     button: |
       **Your address:**
@@ -967,6 +992,10 @@ review:
       **Your email:**
       ${ users[0].email }
     show if: users[0].email_notice
+  - Edit: e_signature
+    button: |
+      **Do you want to add your e-signature to your forms?**
+      ${ word(yesno(e_signature)) }
 ---
 #needs: yes_no_unknown
 id: delivery party review
@@ -1001,9 +1030,9 @@ review:
   - Edit: x.address.address
     button: |
       % if x.is_represented == True:
-      **${ x.lawyer.name.full(middle="full") }'s address: **
+      **${ x.lawyer.name.full(middle="full") }'s address:**
       % else:
-      **${ x.name.full(middle="full") }'s address: **
+      **${ x.name.full(middle="full") }'s address:**
       % endif
       ${ x.address.on_one_line(bare=True) }
   - Edit: x.knows_delivery_method
@@ -1170,4 +1199,7 @@ review:
       **Your email:**
       ${ users[0].email }
     show if: users[0].email_notice
-
+  - Edit: e_signature
+    button: |
+      **Do you want to add your e-signature to your forms?**
+      ${ word(yesno(e_signature)) }
