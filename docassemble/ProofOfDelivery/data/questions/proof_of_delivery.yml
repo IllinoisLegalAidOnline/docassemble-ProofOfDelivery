@@ -900,40 +900,9 @@ attachment:
   filename: additional_proof_blank
   skip undefined: True
   editable: False
-  pdf template file: CC_Additional_Proof_of_Delivery.pdf
+  pdf template file: CC_Additional_Proof_of_Delivery_blank.pdf
   fields:
-      - "court_county": ${ trial_court.address.county.upper() }
-      - "plaintiff_list": ${ users.full_names() if user_ask_role == 'plaintiff' else other_parties.full_names() }
-      - "defendant_list": ${ other_parties.full_names() if user_ask_role == 'plaintiff' else users.full_names() }
-      - "user_name": ${ users[0].name.full(middle="full") }
-      - "user_street": ${ users[0].address.line_one(bare=True) }
-      - "user_csz": ${ users[0].address.line_two() }
-      - "user_phone": ${ phone_number_formatted(users[0].phone_number) }
-      - "user_email": ${ users[0].email if users[0].email_notice else '' }
-      - "case_number": ${ case_number }
-      - "document_name": ${document_name}
-      - "upper_party_name": ${ "" }
-      - "upper_party_address": ${ "" }
-      - "upper_party_email": ${ "" }
-      - "hand_upper": ${ "" }
-      - "mail_upper": ${ "" }
-      - "efiling_upper": ${ "" }
-      - "email_upper": ${ "" }
-      - "date_upper": ${ "" }
-      - "time_upper": ${ "" }
-      - "morning_upper": ${ "" }
-      - "afternoon_upper": ${ "" }
-      - "lower_party_name": ${ "" }
-      - "lower_party_address": ${ "" }
-      - "lower_party_email": ${ "" }
-      - "hand_lower": ${ "" }
-      - "mail_lower": ${ "" }
-      - "efiling_lower": ${ "" }
-      - "email_lower": ${ "" }
-      - "date_lower": ${ "" }
-      - "time_lower": ${ "" }
-      - "morning_lower": ${ "" }
-      - "afternoon_lower": ${ "" }
+      - "fake": ${""}
 ---
 ############### Review page
 id: review screen
