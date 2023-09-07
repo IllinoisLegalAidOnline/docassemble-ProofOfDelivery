@@ -76,7 +76,7 @@ code: |
   for person in delivery_parties[:8]:
     if person.knows_delivery_method == False or person.hand_delivery == True:
       hand_delivery_info
-  e_signature
+  
 
   set_progress(75)
   nav.set_section('section_about_you')
@@ -84,6 +84,7 @@ code: |
   users[0].phone_number
   if users[0].email_notice == True:
     users[0].email
+  e_signature
 
   set_progress(100)
   nav.set_section('section_download')
@@ -98,12 +99,10 @@ subquestion: |
 
   This program will help you prepare forms to prove that you sent a copy of a court document to the other parties in a court case.
   
-  Anytime:
+  You must send a copy of the document to the other parties in the court case anytime:
 
   * You file a document with the court, or
   * The judge sends or gives a court order only to you, 
-
-  you must send a copy of the document to the other parties in the court case.
 field: sees_nav_bar
 ---
 id: instructions
@@ -899,7 +898,7 @@ attachment:
   name: additional_proof_blank
   filename: additional_proof_blank
   skip undefined: True
-  editable: False
+  editable: True
   pdf template file: CC_Additional_Proof_of_Delivery_blank.pdf
   fields:
       - "fake": ${""}
