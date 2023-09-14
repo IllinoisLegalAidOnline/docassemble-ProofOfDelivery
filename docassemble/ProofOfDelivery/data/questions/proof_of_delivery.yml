@@ -1072,6 +1072,7 @@ columns:
 delete buttons: True
 confirm: True
 ---
+section: Case info
 id: case info review screen
 event: section_case_info
 question: |
@@ -1112,6 +1113,7 @@ review:
       **Case number:**
       ${ case_number }   
 ---
+section: Parties
 id: delivery info review screen
 event: section_parties
 question: |
@@ -1139,6 +1141,7 @@ review:
       ${ word(yesno(e_signature)) }
 
 ---
+section: About you
 id: about you review screen
 event: section_about_you
 question: |
