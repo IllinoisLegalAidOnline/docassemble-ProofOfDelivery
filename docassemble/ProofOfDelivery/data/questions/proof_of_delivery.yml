@@ -34,7 +34,7 @@ code: |
 sections:
   - section_intro: Start
   - section_case_info: Case info
-  - section_parties: Parties
+  - section_parties: Parties and delivery
   - section_about_you: About you
   - section_download: Download  
 
@@ -327,11 +327,12 @@ id: e-signature
 question: |
   Do you want to add your e-signature to your Proof of delivery?
 subquestion: |
+  ${ collapse_template(signature_help) }  
+  
+  
   If you do not add your **{e-signature}**, you must sign your paper form before you file and deliver it.
   
   This program can put “/s/ ${users[0].name.full(middle='full')}” where you would sign your name. The court will accept this as your signature.
-
-  ${ collapse_template(signature_help) }  
 fields:
   - "Add e-signature?": e_signature
     datatype: yesnoradio
@@ -471,7 +472,7 @@ content: |
   * US mail or a delivery company (like UPS or FedEx), or
   * Hand delivery.
 
-  You may use US mail or a delivery company, or hand delivery only if you or the other party **does not** have an email address. Otherwise, you must use the email or the court's **{e-filing system}**.
+  You may use US mail or a delivery company, or hand delivery only if you or the other party **does not** have an email address. Otherwise, you must use the email or the court's **{e-filing system}**. Learn about [**e-filing in Illinois**](https://www.illinoiscourts.gov/eservices/efileil/).
 terms:
   - e-filing system: |
       The court's e-filing system could be an electronic filing manager (EFM) or an approved electronic filing service provider (EFSP).
@@ -497,7 +498,7 @@ fields:
   - E-filing system: users[i].efm_delivery
     datatype: yesnowide
     help: |
-      The court's e-filing system could be an electronic filing manager (EFM) or an approved electronic filing service provider (EFSP).
+      The court's e-filing system could be an electronic filing manager (EFM) or an approved electronic filing service provider (EFSP). Learn about [**e-filing in Illinois**](https://www.illinoiscourts.gov/eservices/efileil/).
   - Email: users[i].email_delivery
     datatype: yesnowide
   - Email address: users[i].delivery_email
@@ -536,7 +537,7 @@ fields:
   - E-filing system: other_parties[i].efm_delivery
     datatype: yesnowide
     help: |
-      The court's e-filing system could be an electronic filing manager (EFM) or an approved electronic filing service provider (EFSP).
+      The court's e-filing system could be an electronic filing manager (EFM) or an approved electronic filing service provider (EFSP). Learn about [**e-filing in Illinois**](https://www.illinoiscourts.gov/eservices/efileil/).
   - Email: other_parties[i].email_delivery
     datatype: yesnowide
   - Email address: other_parties[i].delivery_email
@@ -1113,11 +1114,11 @@ review:
       **Case number:**
       ${ case_number }   
 ---
-section: Parties
+section: Parties and delivery
 id: delivery info review screen
 event: section_parties
 question: |
-  Parties
+  Parties and delivery
 subquestion: |
   Edit your answers below.
 review:
