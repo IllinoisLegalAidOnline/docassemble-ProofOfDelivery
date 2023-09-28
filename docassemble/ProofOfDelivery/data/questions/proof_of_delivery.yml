@@ -37,7 +37,6 @@ sections:
   - section_parties: Parties and delivery
   - section_about_you: About you
   - section_download: Download  
-
 ---
 # interview order block
 mandatory: True
@@ -327,12 +326,11 @@ id: e-signature
 question: |
   Do you want to add your e-signature to your Proof of delivery?
 subquestion: |
-  ${ collapse_template(signature_help) }  
-  
-  
   If you do not add your **{e-signature}**, you must sign your paper form before you file and deliver it.
   
   This program can put “/s/ ${users[0].name.full(middle='full')}” where you would sign your name. The court will accept this as your signature.
+  
+  ${ collapse_template(signature_help) }  
 fields:
   - "Add e-signature?": e_signature
     datatype: yesnoradio
@@ -463,7 +461,7 @@ choices:
 ---
 template: delivery_method_help
 subject: |
-  **What are my delivery options?**
+  **Learn more about your delivery options.**
 content: |  
   You can deliver the forms by:
   
@@ -530,9 +528,11 @@ question: |
 subquestion: |  
   You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address.
 
-  **Note:** If you do not know this now, be sure to add it to your forms later.
+  For best results, complete the Proof of Delivery section and send the forms today.
 
-  ${ collapse_template(efiling_help) }  
+  **Note:** If you do not know this now, be sure to add it to the Proof of Delivery section of your forms later.
+
+  ${ collapse_template(efiling_help) }
 fields:
   - E-filing system: other_parties[i].efm_delivery
     datatype: yesnowide
@@ -560,6 +560,8 @@ question: |
   When will you send your ${ document_name } to ${ x.name.full(middle="full") }?
   % endif
 subquestion: |
+  For best results, complete the Proof of Delivery section and send the forms today.
+
   **Note:** If you do not know this now, be sure to add it to your forms later.
 fields:
   - Date: x.delivery_date
