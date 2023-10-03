@@ -461,7 +461,7 @@ choices:
 ---
 template: delivery_method_help
 subject: |
-  **Learn more about your delivery options.**
+  **Learn more about your delivery options**
 content: |  
   You can deliver the forms by:
   
