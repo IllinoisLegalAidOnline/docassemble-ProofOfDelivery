@@ -322,21 +322,21 @@ fields:
     datatype: email
     #required: False
 ---
-id: e-signature
-question: |
-  Do you want to add your e-signature to your Proof of delivery?
-subquestion: |
-  If you do not add your **{e-signature}**, you must sign your paper form before you file and deliver it.
-  
-  This program can put “/s/ ${users[0].name.full(middle='full')}” where you would sign your name. The court will accept this as your signature.
-  
-  ${ collapse_template(signature_help) }  
-fields:
-  - "Add e-signature?": e_signature
-    datatype: yesnoradio
-terms:
-  - "e-signature": |
-      An e-signature is an electronic signature. It is a digital version of a signature that has the same effect as a hand-written signature. 
+#id: e-signature
+#question: |
+#  Do you want to add your e-signature to your Proof of delivery?
+#subquestion: |
+#  If you do not add your **{e-signature}**, you must sign your paper form before you file and deliver it.
+#  
+#  This program can put “/s/ ${users[0].name.full(middle='full')}” where you would sign your name. The court will accept this as your signature.
+#  
+#  ${ collapse_template(signature_help) }  
+#fields:
+#  - "Add e-signature?": e_signature
+#    datatype: yesnoradio
+#terms:
+#  - "e-signature": |
+#      An e-signature is an electronic signature. It is a digital version of a signature that has the same effect as a hand-written signature. 
 ---
 template: signature_help
 subject: |
