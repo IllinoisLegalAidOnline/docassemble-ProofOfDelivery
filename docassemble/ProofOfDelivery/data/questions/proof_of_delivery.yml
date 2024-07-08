@@ -183,7 +183,7 @@ question: |
 subquestion: |
   After you download your *Proof of Delivery*, you must file it with the court. This program does not file your forms for you.
   
-  Read the instructions you can download at the end of this program. 
+  Read the "How to send a court document to the other parties" instructions you can download at the end of this program. 
 ---
 id: user name
 sets:
@@ -219,11 +219,14 @@ fields:
 ---
 id: document name
 question: |
-  What is the name of the court document you are sending to the other parties in the case?
+  What is the name of the court documents you are sending to the other parties in the case?
 subquestion: |
   The name is usually found in the top part of the first page of the court document. Examples include **Court Order**, **Answer to Discovery**, or **Motion to Dismiss**.
+  
+  If you are sending more than one document, separate them by a comma.
 fields:
-  - Court document name: document_name
+  - Name of court documents: document_name
+    maxlength: 80
 ---
 id: any other users
 question: |
@@ -555,7 +558,7 @@ content: |
   * US mail or a delivery company (like UPS or FedEx), or
   * Hand delivery to the party, the party's family member over 13 at their residence, the party's lawyer, or their lawyer's office.
 
-  If the other party listed an email address on the court documents, you must send the forms to them by email or through the e-filing system. You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address.
+  If you have an email address, and the other party listed an email address on the court documents, you must send the forms to them by email or through the e-filing system. You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address.
   
   If you are in a prison or jail, you can deliver by mail.
 terms:
@@ -572,7 +575,7 @@ question: |
   How will you send your forms to ${ users[i].name.full(middle="full") }?
   % endif
 subquestion: |  
-  If the other party listed an email address on the court documents, you must send the forms to them by email or through the e-filing system. You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address. If you are in a prison or jail, you can deliver by mail.
+  If you have an email address, and the other party listed an email address on the court documents, you must send the forms to them by email or through the e-filing system. You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address. If you are in a prison or jail, you can deliver by mail.
 
   For best results, complete the Proof of Delivery section and send the forms today.
 
@@ -666,7 +669,7 @@ question: |
   How will you send your forms to ${ other_parties[i].name.full(middle="full") }?
   % endif
 subquestion: |  
-  If the other party listed an email address on the court documents, you must send the forms to them by email or through the e-filing system. You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address. If you are in a prison or jail, you can deliver by mail.
+  If you have an email address, and the other party listed an email address on the court documents, you must send the forms to them by email or through the e-filing system. You may use US mail or a delivery company, or hand delivery if you or the other party **does not** have an email address. If you are in a prison or jail, you can deliver by mail.
 
   For best results, complete the Proof of Delivery section and send the forms today.
 
@@ -1307,8 +1310,8 @@ attachment:
 #  pdf template file: CC_Additional_Proof_of_Delivery_blank.pdf
 #  fields:
 #      - "fake": ${""}
-#---
-############### Review page
+############### Review pages
+---
 id: review screen
 event: review_answers
 question: |
@@ -1316,6 +1319,10 @@ question: |
 subquestion: |
   Edit your answers below.
 review: 
+  - Edit: document_name
+    button: |
+      **Name of documents you are delivering:**
+      ${ document_name }
   - Edit: user_ask_role
     button: |
       % if user_ask_role == "plaintiff":
@@ -1499,6 +1506,10 @@ question: |
 subquestion: |
   Edit your answers below.
 review: 
+  - Edit: document_name
+    button: |
+      **Name of documents you are delivering:**
+      ${ document_name }
   - Edit: user_ask_role
     button: |
       % if user_ask_role == "plaintiff":
