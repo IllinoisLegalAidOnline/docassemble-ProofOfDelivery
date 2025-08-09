@@ -1,6 +1,6 @@
 import os
 import sys
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 from fnmatch import fnmatchcase
 from distutils.util import convert_path
 
@@ -44,7 +44,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.ProofOfDelivery',
-      version='1.0.7',
+      version='1.0.8',
       description=('Proof of delivery'),
       long_description='# docassemble.Proof_of_delivery\r\n\r\nProof of delivery\r\n\r\n## Author\r\n\r\nMatt Newsted, mnewsted@illinoislegalaid.org\r\nVivian McNaughton, vmcnaughton@illinoislegalaid.org\r\n\r\n',
       long_description_content_type='text/markdown',
@@ -52,9 +52,8 @@ setup(name='docassemble.ProofOfDelivery',
       author_email='vmcnaughton@illinoislegalaid.org',
       license='The MIT License (MIT)',
       url='https://www.illinoislegalaid.org',
-      packages=find_packages(),
-      namespace_packages=['docassemble'],
-      install_requires=['docassemble.AssemblyLine>=3.1.0', 'docassemble.ILAO'],
+      packages=find_namespace_packages(),
+      install_requires=['docassemble.AssemblyLine @ git+https://github.com/SuffolkLITLab/docassemble-AssemblyLine.git@main', 'docassemble.ILAO>=1.1.10'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/ProofOfDelivery/', package='docassemble.ProofOfDelivery'),
      )

@@ -222,7 +222,7 @@ question: |
   % endif
 subquestion: |
   % if len(users.elements) > 1:  
-  So far you have told us about ${comma_and_list(users.complete_elements().full_names())}.
+  So far you have told us about ${users.full_names()}.
   % endif  
 fields:
   - "Anyone else?": users.there_is_another
@@ -279,7 +279,7 @@ subquestion: |
   % endif
 
   % if len(other_parties.elements) >= 1:  
-  So far you have told us about ${comma_and_list(other_parties.complete_elements().full_names())}.
+  So far you have told us about ${other_parties.full_names()}.
   % endif
 fields:
   - "Anyone else?": other_parties.there_is_another
@@ -432,7 +432,7 @@ continue button field: delivery_intro
 question: |
   Send your forms to all other parties
 subquestion: |
-  These are the other parties in this case: ${comma_and_list(delivery_parties)}.
+  These are the other parties in this case: ${comma_and_list(( person.name_full() for person in delivery_parties))}.
 
   You must send a copy of your forms to each of them.
 
