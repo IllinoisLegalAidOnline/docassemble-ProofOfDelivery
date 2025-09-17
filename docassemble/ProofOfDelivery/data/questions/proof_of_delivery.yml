@@ -561,7 +561,6 @@ fields:
   - State: x.address.state
     code: |
       states_list()
-    default: IL      
     js show if: 
       val("x.physical_delivery") == true
     required: False
@@ -591,7 +590,6 @@ fields:
   - State of mailbox or delivery company: x.delivery_mail_state
     code: |
       states_list()
-    default: IL
     js show if: 
       val("x.physical_delivery") == true && val("x.mail_delivery") == true
     required: False
@@ -630,7 +628,6 @@ fields:
   - State: x.jail_delivery_address.state
     code: |
       states_list()
-    default: IL      
     js show if: 
       val("x.physical_delivery") == true && val("x.jail_delivery") == true
     required: False
