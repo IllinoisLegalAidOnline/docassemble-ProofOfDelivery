@@ -44,7 +44,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.ProofOfDelivery',
-      version='1.0.8',
+      version='1.1.2',
       description=('Proof of delivery'),
       long_description='# docassemble.Proof_of_delivery\r\n\r\nProof of delivery\r\n\r\n## Author\r\n\r\nMatt Newsted, mnewsted@illinoislegalaid.org\r\nVivian McNaughton, vmcnaughton@illinoislegalaid.org\r\n\r\n',
       long_description_content_type='text/markdown',
@@ -53,7 +53,7 @@ setup(name='docassemble.ProofOfDelivery',
       license='The MIT License (MIT)',
       url='https://www.illinoislegalaid.org',
       packages=find_namespace_packages(),
-      install_requires=['docassemble.AssemblyLine @ git+https://github.com/SuffolkLITLab/docassemble-AssemblyLine.git@main', 'docassemble.ILAO>=1.1.10'],
+      install_requires=[],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/ProofOfDelivery/', package='docassemble.ProofOfDelivery'),
      )
