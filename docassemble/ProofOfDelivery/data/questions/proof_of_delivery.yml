@@ -1,7 +1,7 @@
 metadata:
   title: Proof of delivery
   short title: Proof of delivery
-  comment: This program helps you prove that you sent a copy of a court document to the other parties in a court case.
+  comment: This Easy Form helps you prove that you sent a copy of a court document to the other parties in a court case.
   authors:
     - Matt Newsted
     - Vivian McNaughton
@@ -20,7 +20,6 @@ objects:
   - other_parties[i].jail_delivery_address: ALAddress
   - delivery_parties: ALPeopleList.using(there_are_any=True)
   - delivery_parties[i].lawyer: ALIndividual
-  - court_list: ALCourtLoader.using(file_name='docassemble.ILAO:data/sources/il_courts.xlsx')
 ---
 code: |
   al_form_type = 'existing_case'
@@ -59,7 +58,7 @@ code: |
   other_parties.gather()
   if in_re_check == True:
     in_re_label
-  trial_court
+  filing_county
   set_progress(45)
   case_number
 
@@ -305,33 +304,12 @@ fields:
       other_parties[i].name_fields(person_or_business='unsure')
 ---
 id: trial court county
-continue button field: case_county
 question: |
   In which county was this case filed?
 fields:
-  - County: trial_court_index
-    datatype: integer
+  - County: filing_county
     code: |
-      court_county_lookup()
----
-code: |
-  def court_county_lookup(lowercase=False):
-    all_court_counties = court_list._load_courts()['address_county'].items()
-    filtered_courts = [(-1, "cook")] if lowercase else [(-1, "Cook")]
-    for court in all_court_counties:
-      if court[1] != "Cook":
-        court_name = court[1].lower() if lowercase else court[1]
-        filtered_courts.append((court[0],court_name))
-    return sorted( filtered_courts, key=lambda y: y[1])
----
-depends on:
-  - trial_court_index
-code: |
-  if trial_court_index == -1:
-    trial_court = court_list.as_court('trial_court', 15)
-    trial_court.address.county = "Cook"
-  else:
-    trial_court = court_list.as_court('trial_court', trial_court_index)
+      il_county_list
 ---
 id: case number
 question: |
@@ -638,8 +616,11 @@ template: efiling_help
 subject: |
   **What if I need help sending my forms electronically?**
 content: |  
-  If you need help delivering by email or using the e-filing system, you can visit a [**Legal Self-Help Center**](https://www.illinoislegalaid.org/get-legal-help/lshc-directory) or you can call, chat, or text a Court Guide at [**Illinois Court Help**](https://www.ilcourthelp.gov) or 833-411-1121.
----
+  If you need help delivering by email or using the e-filing system, you can visit a [**Legal Self-Help Center :external-link:**](https://www.illinoislegalaid.org/get-legal-help/lshc-directory). You can also contact Illinois Court Help:
+
+  * **[Visit the Illinois Court Help website :external-link:](https://www.ilcourthelp.gov/)**,
+  * <a href="tel:833-411-1121">**Call (833) 411-1121 :phone:**</a>, or
+  * <a href="sms:833-411-1121">**Text (833) 411-1121 :comment:**</a>.
 ---
 id: delivery time
 generic object: ALIndividual
@@ -798,7 +779,7 @@ attachment:
   editable: False
   pdf template file: proof_of_delivery.pdf
   fields:
-      - "trial_court_county": ${ trial_court.address.county.upper() }
+      - "trial_court_county": ${ filing_county.upper() }
       - "plaintiffs": |
           % if in_re_check:
           ${ in_re_label }
@@ -902,7 +883,7 @@ attachment:
   editable: False
   pdf template file: additional_proof_of_delivery.pdf
   fields:
-      - "trial_court_county": ${ trial_court.address.county }
+      - "trial_court_county": ${ filing_county }
       - "plaintiffs": |
           % if in_re_check:
           ${ in_re_label }
@@ -1036,13 +1017,10 @@ review:
     button: |
       **In re:** ${in_re_label}
     show if: in_re_check
-  - Edit: 
-      - trial_court_index
-      - recompute:
-        - trial_court
+  - Edit: filing_county
     button: |
       **County where this case is filed:**
-      ${ trial_court.address.county }
+      ${ filing_county }
   - Edit: case_number
     button: |
       **Case number:**
@@ -1235,13 +1213,10 @@ review:
     button: |
       **In re:** ${in_re_label}
     show if: in_re_check
-  - Edit: 
-      - trial_court_index
-      - recompute:
-        - trial_court
+  - Edit: filing_county
     button: |
       **County where this case is filed:**
-      ${ trial_court.address.county }
+      ${ filing_county }
   - Edit: case_number
     button: |
       **Case number:**
